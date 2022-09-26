@@ -7,7 +7,7 @@ public class InputInit : MonoBehaviour
 {
 
     public GameObject inputManager;
-    private List<GameObject> inputManagers = new List<GameObject>();
+    public GameObject[] inputManagers = new GameObject[5];
 
 
     // Start is called before the first frame update
@@ -19,24 +19,31 @@ public class InputInit : MonoBehaviour
         
 
         //instantiate all of the gamepad input managers
-        for (int i = 0; i < Gamepad.all.Count; i++)
+        for (int i = 0; i < (Gamepad.all.Count <= 4? Gamepad.all.Count: 4); i++)
         {
-            inputManagers.Add(Instantiate(inputManager));
-            inputManagers[i].GetComponent<InputManage>().inputId = i;
-            inputManagers[i].GetComponent<InputManage>().gamepadId = Gamepad.all[i];
-            inputManagers[i].GetComponent<InputManage>().isGamepad = true;
-            //InputSystem.AddDevice(Gamepad.all[i]);
-            //InputSystem.AddDeviceUsage(Gamepad.all[i], $"Gamepad {i}");
+            inputManagers[i + 1] = (Instantiate(inputManager));
+            inputManagers[i + 1].GetComponent<InputManage>().inputId = i;
+            inputManagers[i + 1].GetComponent<InputManage>().gamepadId = Gamepad.all[i];
+            inputManagers[i + 1].GetComponent<InputManage>().isGamepad = true;
         }
 
         //instantiate keyboard as input object
-        inputManagers.Add(Instantiate(inputManager));
-        inputManagers[inputManagers.Count-1].GetComponent<InputManage>().inputId = -1;
+        inputManagers[0] = (Instantiate(inputManager));
+        inputManagers[0].GetComponent<InputManage>().inputId = -1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        ///we fiix later
+        //for (int i = 1; i < 1; i++)
+        //{
+        //    if(inputManagers[i + 1].GetComponent<InputManage>().gamepadId == null)
+        //    {
+        //        inputManagers[i + 1] = null;
+        //    }
+        //}
     }
+
+    
 }

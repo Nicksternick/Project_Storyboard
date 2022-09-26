@@ -41,6 +41,7 @@ public class InputManage : MonoBehaviour
                 Debug.Log($":) {inputId}");
             }
         }
+
         
     }
 }
